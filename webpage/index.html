@@ -11,24 +11,27 @@
 <div id="frame">
 	<div id="content">
         <div id="video-container">
-            <video width="1280" height="720" controls>
+            <video id="video" muted>
                 <source src="http://cdn.gsmarena.com/vv/reviewsimg/lg-g2/review/camera/gsmarena_v001.mp4" type="video/mp4">
             </video>
+            <div id="fullscreen"></div>
         </div>
         <div id="stats">
-        	<div role="button" id="toggle-stats"><div></div></div>
-            <div class="stat-frac">
-            	<div class="stat-day"><span>Today</span></div>
-                <div class="stat-ammount">
-                	<span>13 kWh</span>
-                    <span class="green">17 kr</span>
+        	<div role="button" id="toggle-stats"><div class="closed"></div></div>
+            <div id="stats-box" style="display: none">
+                <div class="stat-frac">
+                	<div class="stat-day"><span>Today</span></div>
+                    <div class="stat-values">
+                    	<span>13 kWh</span>
+                        <span class="green">17 kr</span>
+                    </div>
                 </div>
-            </div>
-            <div class="stat-frac">
-            	<div class="stat-day"><span>This month</span></div>
-                <div class="stat-ammount">
-                	<span>92 kWh</span>
-                    <span class="red">120 kr</span>
+                <div class="stat-frac">
+                	<div class="stat-day"><span>This month</span></div>
+                    <div class="stat-values">
+                    	<span>92 kWh</span>
+                        <span class="red">120 kr</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -37,23 +40,59 @@
 <script>
 $(document).ready(function() {
 	$('#toggle-stats').click(function() {
-		var button = $('#toggle-stats > div');
+		var button = $('#toggle-stats > div'),
+            box = $('#stats-box');
 		if(button.hasClass('closed')) {
-			$('.stat-frac').fadeIn(100);
+            box.css({marginTop: '25px'});
+			box.fadeIn(200).animate({marginTop: '-=25px'},200).dequeue();
 			button.css({transform: 'rotate(360deg)'});
 			button.removeClass('closed');
 			setTimeout(function() {
 				button.css({transition: '0'});
 				button.css({transform: 'rotate(0deg)'});
-			}, 100);
+			}, 200);
 		}
 		else {
-			$('.stat-frac').fadeOut(100);
+            box.fadeOut(100).animate({marginTop: '-=25px'},200).dequeue();
+            setTimeout(function() {
+                box.css({marginTop: '+=25px'});
+            }, 200);
 			button.css({transform: 'rotate(180deg)'});
 			button.addClass('closed');
 		}
 		button.css({transition: '.2s'});
 	});
+    $('#video-container').on('mouseenter', function() {
+        $('#fullscreen').css({'display': 'block'});
+    }).on('mouseleave', function() {
+        $('#fullscreen').css({'display': 'none'});
+    });
+    $('#fullscreen').click(function() {
+        var video = document.getElementById('video');
+        if (!document.fullscreenElement && !document.mozFullScreenElement && 
+            !document.webkitFullscreenElement && !document.msFullscreenElement ) {
+            if (video.requestFullscreen) {
+              video.requestFullscreen();
+            } else if (video.mozRequestFullScreen) {
+              video.mozRequestFullScreen();
+            } else if (video.webkitRequestFullscreen) {
+              video.webkitRequestFullscreen();
+            }
+            $('#fullscreen').css({'background-image': 'url(images/ic_fullscreen_exit_24px.svg)'});
+        }
+        else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            }
+            $('#fullscreen').css({'background-image': 'url(images/ic_fullscreen_24px.svg)'});
+        }
+    });
 });
 </script>
 </body>
