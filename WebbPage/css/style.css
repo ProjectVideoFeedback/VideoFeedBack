@@ -5,7 +5,7 @@
 	margin: 0;
 	padding: 0;
 	font-family: 'Roboto', sans-serif;
-	font-size: 16px;
+	font-size: 14px;
 	font-weight: 400;
 	border-sizing: border-box;
 }
@@ -29,6 +29,7 @@ body {
 	height: 100%; 
 	width: 100%;
 	background: #222222;
+	background-image: 
 }
 
 #content {
@@ -40,6 +41,8 @@ body {
 #video-container {
 	background: #000;
 	margin: auto;
+	width: 1280px;
+	height: 720px;
 	margin-top: 50px; 
 	box-shadow: 0 5px 10px #111;
 }
@@ -48,29 +51,42 @@ body {
 	position: relative;
 	display: block;
 	float: right;
-	margin-right: 50px;
+	margin-right: 40px;
 	width: 160px;
 	text-shadow: 1px 1px #000;
+	transition: .2s;
 }
 
 #toggle-stats {
 	position: absolute;
 	top: 10px;
-	right: -50px;
-	width: 18px;
-	height: 18px;
-	box-shadow: inset 1px 1px 2px #000;
+	right: -40px;
+	width: 20px;
+	height: 20px;
 	border-radius: 3px;
-	background-color: #1b1b1b;
-	background-image: url("images/arrow.png");
+}
+
+#toggle-stats:hover {
+	cursor: pointer;
+}
+
+#toggle-stats > div {
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 14px;
+	height: 14px;
+	background-image: url("../images/arrow.png");
+	background-repeat: no-repeat;
+	background-position: 0 3px;
 }
 
 .stat-frac {
 	margin-top: 22px;
 }
 
-.top {
-	margin-top: 10px;
+.stat-frac:nth-child(2) {
+	margin-top: 12px;
 }
 
 .stat-day {
@@ -79,7 +95,6 @@ body {
 }
 
 .stat-ammount {
-	display: inline-block;
 	float: right; 
 	color: #fff;
 }

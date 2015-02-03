@@ -6,11 +6,8 @@
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <link href='http://fonts.googleapis.com/css?family=Roboto:300,400' rel='stylesheet' type='text/css'>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-
 </head>
-
 <body>
-
 <div id="frame">
 	<div id="content">
         <div id="video-container">
@@ -19,8 +16,8 @@
             </video>
         </div>
         <div id="stats">
-        	<div role="button" id="toggle-stats"></div>
-            <div class="stat-frac top">
+        	<div role="button" id="toggle-stats"><div></div></div>
+            <div class="stat-frac">
             	<div class="stat-day"><span>Today</span></div>
                 <div class="stat-ammount">
                 	<span>13 kWh</span>
@@ -37,6 +34,27 @@
         </div>
     </div>
 </div>
-
+<script>
+$(document).ready(function() {
+	$('#toggle-stats').click(function() {
+		var button = $('#toggle-stats > div');
+		if(button.hasClass('closed')) {
+			$('.stat-frac').fadeIn(100);
+			button.css({transform: 'rotate(360deg)'});
+			button.removeClass('closed');
+			setTimeout(function() {
+				button.css({transition: '0'});
+				button.css({transform: 'rotate(0deg)'});
+			}, 100);
+		}
+		else {
+			$('.stat-frac').fadeOut(100);
+			button.css({transform: 'rotate(180deg)'});
+			button.addClass('closed');
+		}
+		button.css({transition: '.2s'});
+	});
+});
+</script>
 </body>
 </html>
