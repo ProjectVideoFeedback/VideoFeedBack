@@ -1,0 +1,90 @@
+@charset "utf-8";
+/* CSS Document */
+
+* {
+	margin: 0;
+	padding: 0;
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	border-sizing: border-box;
+}
+
+body {
+	background: #222222;
+}
+
+.green {
+	color: #4caf50;
+}
+
+.red {
+	color: #e53935;
+}
+
+#frame {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%; 
+	width: 100%;
+	background: #222222;
+}
+
+#content {
+	position: relative;
+	width: 1280px;	
+	margin: auto;
+}
+
+#video-container {
+	background: #000;
+	margin: auto;
+	margin-top: 50px; 
+	box-shadow: 0 5px 10px #111;
+}
+
+#stats {
+	position: relative;
+	display: block;
+	float: right;
+	margin-right: 50px;
+	width: 160px;
+	text-shadow: 1px 1px #000;
+}
+
+#toggle-stats {
+	position: absolute;
+	top: 10px;
+	right: -50px;
+	width: 18px;
+	height: 18px;
+	box-shadow: inset 1px 1px 2px #000;
+	border-radius: 3px;
+	background-color: #1b1b1b;
+	background-image: url("images/arrow.png");
+}
+
+.stat-frac {
+	margin-top: 22px;
+}
+
+.top {
+	margin-top: 10px;
+}
+
+.stat-day {
+	display: inline-block;
+	color: #f57c00;
+}
+
+.stat-ammount {
+	display: inline-block;
+	float: right; 
+	color: #fff;
+}
+
+.stat-ammount span {
+	text-align: right; 
+	display: block;
+}

@@ -1,7 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+<head>
+<meta charset="utf-8">
+<title>Video Feedback</title>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<link href='http://fonts.googleapis.com/css?family=Roboto:300,400' rel='stylesheet' type='text/css'>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+</head>
+
 <body>
 
+<div id="frame">
+	<div id="content">
+        <div id="video-container">
+            <video width="1280" height="720" controls>
+                <source src="http://cdn.gsmarena.com/vv/reviewsimg/lg-g2/review/camera/gsmarena_v001.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div id="stats">
+        	<div role="button" id="toggle-stats"></div>
+            <div class="stat-frac top">
+            	<div class="stat-day"><span>Today</span></div>
+                <div class="stat-ammount">
+                	<span>13 kWh</span>
+                    <span class="green">17 kr</span>
+                </div>
+            </div>
+            <div class="stat-frac">
+            	<div class="stat-day"><span>This month</span></div>
+                <div class="stat-ammount">
+                	<span>92 kWh</span>
+                    <span class="red">120 kr</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
