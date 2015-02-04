@@ -18,24 +18,24 @@
         </div>
         <div id="settings">
             <div role="button" id="toggle-settings" class="toggle"><div class="closed"></div></div>
-            <div id="settings-box" style="display: none">
-
+            <div id="settings-box" class="roll-box">
+                <span class="alt orange">Pris per kWh: </span><input type="text" class="white"><span class="unit">kr</span>
             </div>
         </div>
         <div id="stats">
         	<div role="button" id="toggle-stats" class="toggle"><div class="closed"></div></div>
-            <div id="stats-box" style="display: none">
+            <div id="stats-box" class="roll-box">
                 <div class="stat-frac">
-                	<div class="stat-day"><span>Today</span></div>
+                	<div class="stat-time orange"><span>Today</span></div>
                     <div class="stat-values">
-                    	<span>13 kWh</span>
+                    	<span class="white">13 kWh</span>
                         <span class="green">17 kr</span>
                     </div>
                 </div>
                 <div class="stat-frac">
-                	<div class="stat-day"><span>This month</span></div>
+                	<div class="stat-time orange"><span>This month</span></div>
                     <div class="stat-values">
-                    	<span>92 kWh</span>
+                    	<span class="white">92 kWh</span>
                         <span class="red">120 kr</span>
                     </div>
                 </div>
@@ -89,7 +89,7 @@ function fullscreen() {
         } else if (video.webkitRequestFullscreen) {
           video.webkitRequestFullscreen();
         }
-        $('#fullscreen').css({'background-image': 'url(images/fullscreen-exit.svg)'});
+        $('#fullscreen').css({'background-image': 'url(images/fullscreen-exit.svg)', 'position': 'fixed'});
     } else {
         if (document.exitFullscreen) {
             document.exitFullscreen();
@@ -100,7 +100,7 @@ function fullscreen() {
         } else if (document.webkitExitFullscreen) {
             document.webkitExitFullscreen();
         }
-        $('#fullscreen').css({'background-image': 'url(images/fullscreen.svg)'});
+        $('#fullscreen').css({'background-image': 'url(images/fullscreen.svg)', 'position': 'absolute'});
     }
 }
 
@@ -118,23 +118,24 @@ function toggle(elem) {
         button = $('#toggle-settings > div');
         box = $('#settings-box');
     }
+    button.css({transition: '.2s'});
     if(button.hasClass('closed')) {
-        box.css({marginTop: '25px'});
-        box.fadeIn(200).animate({marginTop: '-=25px'},200).dequeue();
+        box.css({marginTop: '28px'});
+        box.fadeIn(200).animate({marginTop: '-=15px'},200).dequeue();
         if(stats) 
             button.css({transform: 'rotate(360deg)'});
         else 
             button.css({transform: 'rotate(-360deg)'});
         button.removeClass('closed');
         setTimeout(function() {
-            button.css({transition: '0'});
+            button.css({transition: '0s'});
             button.css({transform: 'rotate(0deg)'});
         }, 200);
     }
     else {
-        box.fadeOut(100).animate({marginTop: '-=25px'},200).dequeue();
+        box.fadeOut(100).animate({marginTop: '-=15px'},200).dequeue();
         setTimeout(function() {
-            box.css({marginTop: '+=25px'});
+            box.css({marginTop: '+=15px'});
         }, 200);
         if(stats) 
             button.css({transform: 'rotate(180deg)'});
@@ -142,7 +143,6 @@ function toggle(elem) {
             button.css({transform: 'rotate(-180deg)'});
         button.addClass('closed');
     }
-    button.css({transition: '.2s'});
 }
 </script>
 </body>
