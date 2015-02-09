@@ -2,148 +2,62 @@
 <html>
 <head>
 <meta charset="utf-8">
+<meta name="description" content="Visualize your energy consumption!">
 <title>Video Feedback</title>
 <link rel="stylesheet" type="text/css" href="css/style.css">
-<link href='http://fonts.googleapis.com/css?family=Roboto:300,400' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,600' rel='stylesheet' type='text/css'>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="js/scripts.js"></script>
 </head>
 <body>
 <div id="frame">
-	<div id="content">
-        <div id="video-container">
-            <video id="video" muted>
-                <source src="http://cdn.gsmarena.com/vv/reviewsimg/lg-g2/review/camera/gsmarena_v001.mp4" type="video/mp4">
-            </video>
-            <div id="fullscreen"></div>
+    <div id="start-page" class="active">
+        <div class="content">
+            <div id="welcome" class="blue">Welcome!</div>
+            <div id="info">Please fill in the information</div>
+            <span>Host name</span>
+            <form onsubmit="document.getElementById('connect').click">
+                <input type="text" id="host" class="white">
+            </form>
+            <div role="button" id="connect">Connect</div>
         </div>
-        <div id="settings">
-            <div role="button" id="toggle-settings" class="toggle"><div class="closed"></div></div>
-            <div id="settings-box" class="roll-box">
-                <span class="alt orange">Pris per kWh: </span><input type="text" class="white"><span class="unit">kr</span>
+    </div>
+    <div id="loader-page" class><span class="black">Connecting</span><div id="loader"></div></div>
+	<div id="video-page" class>
+        <div class="content">
+            <div id="video-container">
+                <video id="video" muted autoplay>
+                    <source src="http://cdn.gsmarena.com/vv/reviewsimg/lg-g2/review/camera/gsmarena_v001.mp4" type="video/mp4">
+                </video>
+                <div id="fullscreen"></div>
             </div>
-        </div>
-        <div id="stats">
-        	<div role="button" id="toggle-stats" class="toggle"><div class="closed"></div></div>
-            <div id="stats-box" class="roll-box">
-                <div class="stat-frac">
-                	<div class="stat-time orange"><span>Today</span></div>
-                    <div class="stat-values">
-                    	<span class="white">13 kWh</span>
-                        <span class="green">17 kr</span>
-                    </div>
+            <div id="settings">
+                <div role="button" id="toggle-settings" class="toggle"><div class="closed"></div></div>
+                <div id="settings-box" class="roll-box">
+                    <span class="alt orange">Pris per kWh: </span><input type="text" class="white"><span class="unit">kr</span>
                 </div>
-                <div class="stat-frac">
-                	<div class="stat-time orange"><span>This month</span></div>
-                    <div class="stat-values">
-                    	<span class="white">92 kWh</span>
-                        <span class="red">120 kr</span>
+            </div>
+            <div id="stats">
+            	<div role="button" id="toggle-stats" class="toggle"><div class="closed"></div></div>
+                <div id="stats-box" class="roll-box">
+                    <div class="stat-frac">
+                    	<div class="stat-time orange"><span>Today</span></div>
+                        <div class="stat-values">
+                        	<span class="white">13 kWh</span>
+                            <span class="green">17 kr</span>
+                        </div>
+                    </div>
+                    <div class="stat-frac">
+                    	<div class="stat-time orange"><span>This month</span></div>
+                        <div class="stat-values">
+                        	<span class="white">92 kWh</span>
+                            <span class="red">120 kr</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script>
-$(document).ready(function() {
-    /* Toggle statistics/settings */
-	$('.toggle').click(function() {
-		toggle(this);
-	});
-
-    /* Show/hide fullscreen icon */
-    $('#video-container').on('mouseenter', function() {
-        $('#fullscreen').show();
-    }).on('mouseleave', function() {
-        $('#fullscreen').fadeOut(200);
-    });
-
-    /* Hide fullscreen icon and cursor on inactivity */
-    var timer;
-    document.getElementById('video').addEventListener('mousemove', function() {
-        //document.body.style.cursor = 'default';
-        $('#fullscreen').show();
-        clearTimeout( timer );
-        timer = setTimeout(function() {
-            //document.body.style.cursor = 'none';
-            $('#fullscreen').fadeOut(200);
-        }, 1500 );
-    });
-
-    /* Fullscreen */
-    $('#fullscreen').click(function() {
-        fullscreen();
-    });
-    $('#video').dblclick(function() {
-        fullscreen();
-    });
-});
-
-function fullscreen() {
-    var video = document.getElementById('video');
-    if (!document.fullscreenElement && !document.mozFullScreenElement && 
-        !document.webkitFullscreenElement && !document.msFullscreenElement ) {
-        if (video.requestFullscreen) {
-          video.requestFullscreen();
-        } else if (video.mozRequestFullScreen) {
-          video.mozRequestFullScreen();
-        } else if (video.webkitRequestFullscreen) {
-          video.webkitRequestFullscreen();
-        }
-        $('#fullscreen').css({'background-image': 'url(images/fullscreen-exit.svg)', 'position': 'fixed'});
-    } else {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        } else if (document.msExitFullscreen) {
-            document.msExitFullscreen();
-        } else if (document.mozCancelFullScreen) {
-            document.mozCancelFullScreen();
-        } else if (document.webkitExitFullscreen) {
-            document.webkitExitFullscreen();
-        }
-        $('#fullscreen').css({'background-image': 'url(images/fullscreen.svg)', 'position': 'absolute'});
-    }
-}
-
-function toggle(elem) {
-    var button, box, 
-        stats = false, 
-        settings = false;
-    if(elem == document.getElementById('toggle-stats')) {
-        var stats = true;
-        button = $('#toggle-stats > div');
-        box = $('#stats-box');
-    }
-    else if(elem == document.getElementById('toggle-settings')) {
-        var settings = true;
-        button = $('#toggle-settings > div');
-        box = $('#settings-box');
-    }
-    button.css({transition: '.2s'});
-    if(button.hasClass('closed')) {
-        box.css({marginTop: '28px'});
-        box.fadeIn(200).animate({marginTop: '-=15px'},200).dequeue();
-        if(stats) 
-            button.css({transform: 'rotate(360deg)'});
-        else 
-            button.css({transform: 'rotate(-360deg)'});
-        button.removeClass('closed');
-        setTimeout(function() {
-            button.css({transition: '0s'});
-            button.css({transform: 'rotate(0deg)'});
-        }, 200);
-    }
-    else {
-        box.fadeOut(100).animate({marginTop: '-=15px'},200).dequeue();
-        setTimeout(function() {
-            box.css({marginTop: '+=15px'});
-        }, 200);
-        if(stats) 
-            button.css({transform: 'rotate(180deg)'});
-        else 
-            button.css({transform: 'rotate(-180deg)'});
-        button.addClass('closed');
-    }
-}
-</script>
 </body>
 </html>
