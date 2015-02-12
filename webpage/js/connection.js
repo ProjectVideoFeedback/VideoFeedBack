@@ -7,8 +7,6 @@ function connect(){
 	    socket.on('mqtt', function (msg) {
 	      console.log(msg.topic+' '+msg.payload);
 	    });
-
 	});
-	hej.arguments.arguments.hej.payload();
-
+	socket.emit('subscribe',{topic:'/some/sensor/data'});
 }
