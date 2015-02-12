@@ -3,7 +3,6 @@ $(document).ready(function() {
     $('#loader-page').fadeIn(0);
     $('#loader').addClass('load');
     /* Connect to server */
-    connect();
 
 
     $('#connect').click(function() {
@@ -11,6 +10,8 @@ $(document).ready(function() {
         $('#loader-page').fadeIn(200);
         $('#loader').addClass('load');
         $('#loader-small').addClass('load load-reverse');
+
+        connect('http://op-en.se:5000');
 
         setTimeout(function() {
             $('#start-page').fadeOut(200);

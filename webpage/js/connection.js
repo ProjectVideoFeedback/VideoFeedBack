@@ -1,8 +1,9 @@
 
 var socket;
 
-function connect(){
-	socket = io.connect('http://op-en.se:5000');
+function connect(source){
+	console.log("Tjena boys");
+	socket = io.connect(source);
 	socket.on('connect', function () {
 	    socket.on('mqtt', function (msg) {
 	      console.log(msg.topic+' '+msg.payload);
