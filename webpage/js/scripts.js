@@ -3,6 +3,8 @@ $(document).ready(function() {
     $('#loader-page').fadeIn(0);
     $('#loader').addClass('load');
     /* Connect to server */
+    connect();
+
 
     $('#connect').click(function() {
         $('#start-page').animate({'opacity': '.1', 'pointer-events': 'none'}, 200);
@@ -26,11 +28,11 @@ $(document).ready(function() {
         toggle(this);
     });
 
-    /* Show/hide fullscreen icon */
+    /* Show/hide fullscren icon */
     $('#video-container').on('mouseenter', function() {
         $('#fullscreen').show();
     }).on('mouseleave', function() {
-        $('#fullscreen').fadeOut(200);
+        $('#fullscreen').fadeOut(200);e
     });
 
     /* Hide fullscreen icon and cursor on inactivity */
