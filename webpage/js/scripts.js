@@ -16,6 +16,7 @@ $(document).ready(function() {
         setTimeout(function() {
             $('#start-page').fadeOut(200);
             $('#loader-page').fadeOut(200);
+            $('.content').removeClass('small');
             setTimeout(function() {
                 $('#loader').removeClass('load');
             }, 200);
