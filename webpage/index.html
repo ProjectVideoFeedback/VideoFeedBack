@@ -7,11 +7,12 @@
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,600' rel='stylesheet' type='text/css'>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="js/connection.js"></script>
 <script src="js/scripts.js"></script>
 </head>
 <body>
 <div id="frame">
-    <div id="start-page" class>
+    <div id="start-page" class="active">
         <div class="content">
             <div id="welcome" class="blue">Welcome!</div>
             <div id="info">Please fill in the information</div>
@@ -23,7 +24,7 @@
         </div>
     </div>
     <div id="loader-page" class><span class="black">Connecting</span><div id="loader"></div></div>
-    <div id="video-page" class="active">
+    <div id="video-page" class>
         <div class="content">
             <div id="video-container">
                 <video id="video" muted autoplay>
