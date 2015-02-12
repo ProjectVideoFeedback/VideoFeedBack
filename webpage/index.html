@@ -12,53 +12,54 @@
 </head>
 <body>
 <div id="frame">
-    <div id="start-page" class="active">
+    <div class="container">
         <div class="content">
-            <div id="welcome" class="blue">Welcome!</div>
-            <div id="info">Please fill in the information</div>
-            <span>Host name</span>
-            <form onsubmit="document.getElementById('connect').click">
-                <input type="text" id="host" class="white">
-            </form>
-            <div role="button" id="connect">Connect</div>
+            <div id="start-page" class="inner-container active">
+                <div id="welcome" class="blue">Welcome!</div>
+                <div id="info">Please fill in the information</div>
+                <img src="images/favicon.png" style="position: absolute; right: 0">
+                <span>Host name</span>
+                <form onsubmit="document.getElementById('connect').click">
+                    <input type="text" id="host" class="white">
+                </form>
+                <div role="button" id="connect">Connect</div>
+            </div>
+            <div id="video-page" class="inner-container">
+                <div class="video-container">
+                    <video id="video" muted autoplay>
+                        <source src="http://cdn.gsmarena.com/vv/reviewsimg/lg-g2/review/camera/gsmarena_v001.mp4" type="video/mp4">
+                    </video>
+                    <div id="fullscreen"></div>
+                </div>
+                <div id="settings">
+                    <div role="button" id="toggle-settings" class="toggle"><div class="closed"></div></div>
+                    <div id="settings-box" class="roll-box">
+                        <span class="alt orange">Pris per kWh: </span><input type="text" class="white"><span class="unit">kr</span>
+                    </div>
+                </div>
+                <div id="stats">
+                    <div role="button" id="toggle-stats" class="toggle"><div class="closed"></div></div>
+                    <div id="stats-box" class="roll-box">
+                        <div class="stat-frac">
+                            <div class="stat-time orange"><span>Today</span></div>
+                            <div class="stat-values">
+                                <span class="white">13 kWh</span>
+                                <span class="green">17 kr</span>
+                            </div>
+                        </div>
+                        <div class="stat-frac">
+                            <div class="stat-time orange"><span>This month</span></div>
+                            <div class="stat-values">
+                                <span class="white">92 kWh</span>
+                                <span class="red">120 kr</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div id="loader-page" class><span class="black">Connecting</span><div id="loader"></div></div>
-    <div id="video-page" class>
-        <div class="content">
-            <div id="video-container">
-                <video id="video" muted autoplay>
-                    <source src="http://cdn.gsmarena.com/vv/reviewsimg/lg-g2/review/camera/gsmarena_v001.mp4" type="video/mp4">
-                </video>
-                <div id="fullscreen"></div>
-            </div>
-            <div id="settings">
-                <div role="button" id="toggle-settings" class="toggle"><div class="closed"></div></div>
-                <div id="settings-box" class="roll-box">
-                    <span class="alt orange">Pris per kWh: </span><input type="text" class="white"><span class="unit">kr</span>
-                </div>
-            </div>
-            <div id="stats">
-            	<div role="button" id="toggle-stats" class="toggle"><div class="closed"></div></div>
-                <div id="stats-box" class="roll-box">
-                    <div class="stat-frac">
-                    	<div class="stat-time orange"><span>Today</span></div>
-                        <div class="stat-values">
-                        	<span class="white">13 kWh</span>
-                            <span class="green">17 kr</span>
-                        </div>
-                    </div>
-                    <div class="stat-frac">
-                    	<div class="stat-time orange"><span>This month</span></div>
-                        <div class="stat-values">
-                        	<span class="white">92 kWh</span>
-                            <span class="red">120 kr</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 </body>
 </html>

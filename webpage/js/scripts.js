@@ -3,7 +3,7 @@ $(document).ready(function() {
     $('#loader-page').fadeIn(0);
     $('#loader').addClass('load');
     /* Connect to server */
-    connect();
+    //connect();
 
 
     $('#connect').click(function() {
@@ -32,7 +32,7 @@ $(document).ready(function() {
     $('#video-container').on('mouseenter', function() {
         $('#fullscreen').show();
     }).on('mouseleave', function() {
-        $('#fullscreen').fadeOut(200);e
+        $('#fullscreen').fadeOut(200);
     });
 
     /* Hide fullscreen icon and cursor on inactivity */
