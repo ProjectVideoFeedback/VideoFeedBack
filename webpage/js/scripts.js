@@ -33,7 +33,7 @@ $(document).ready(function() {
     $('#video-container').on('mouseenter', function() {
         $('#fullscreen').show();
     }).on('mouseleave', function() {
-        $('#fullscreen').fadeOut(200);e
+        $('#fullscreen').fadeOut(200);
     });
 
     /* Hide fullscreen icon and cursor on inactivity */
