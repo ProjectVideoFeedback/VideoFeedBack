@@ -7,7 +7,7 @@
 	font-family: 'Roboto', sans-serif;
 	font-size: 14px;
 	font-weight: 400;
-	border-sizing: border-box;
+	box-sizing: border-box;
 }
 
 body, html {
@@ -192,6 +192,11 @@ input:focus {
 	max-height: 720px;
 	height: 100%;
 	box-shadow: 0 5px 10px #111;
+}
+
+#start-page.inner-container {
+	border-radius: 5px;
+	padding: 30px;
 }
 
 #video-page.inner-container {
