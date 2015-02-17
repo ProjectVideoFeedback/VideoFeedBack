@@ -18,7 +18,7 @@ function connect(source){
 function measurement_storage(msg, date){
 
 	measurement_data.push(
-		{"measurement":[{"buildingwatt": msg.payload, "date": date }]}
+		{"measurement":[{"buildingwatt": msg.payload, "date": date}]}
 		);
 }
 
@@ -30,5 +30,6 @@ function check(msg){
 		start = end;
 		measurement_storage(msg, new Date());
 		console.log(msg.topic+' '+msg.payload+', time elapsed:'+time+', Date:'+new Date());
+		console.log("size: " + measurement_data.length);
 	}
 }
