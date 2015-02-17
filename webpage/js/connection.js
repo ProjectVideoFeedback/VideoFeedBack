@@ -2,6 +2,7 @@
 var socket;
 var measurement_data = [];
 var start, end, time;
+var startTime = new Date();
 var wattSum = 0;
 var totalCost = 0;
 
@@ -32,10 +33,11 @@ function check(msg){
 		start = end;
 		wattSum += msg.payload;
 
-		setTotalCost(money_converter(wattSum));
+		//setTotalCost(money_converter(wattSum));
+		console.log(" KWH: " + (wattSum*((new Date()).getTime() - startTime.getTime())/(3600 * 1000))/1000);
 		//measurement_storage(msg, new Date());
 		//console.log(msg.topic+' '+msg.payload+', time elapsed:'+time+', Date:'+new Date());
-		//console.log("size: " + measurement_data.length + " buildingwatt: " + measurement_data[measurement_data.length-1]["buildingwatt"] + " Date: " + measurement_data[measurement_data.length-1]["date"]);
+		//console.log("size: " + measurement_data.length + " buildingwatt: " + measurement_data[measurement_data.length-1]["buildingwatt"] + " Date: " + measurement_data[measurement_data.length-1]["date"] + " KWH: " + wattSum/1000);
 	}
 }
 
@@ -53,14 +55,27 @@ function setTotalCost(cost){
 //Make The coins in the movie fall down. starts and pauses the video at the right places.
 function dropCoins(amount){
 	//Do the drop coins code.
+	var video = document.getElementById("video");
+	var nextPause = 100;
+	video.start();
+	video.addEventListener("timeupdate", function(){
+	    if(this.currentTime >=  nextPause) {
+	        this.pause();
+	    }
+	});
 }
 
 //Takes the total amount of watt and converts it to the amount of money it costs.
 function money_converter(totalwatt){
 
-	var priceKWH = document.getElementByID("price").value;
-	var cost = (totalwatt / 1000)*900 * priceKWH;//Vet inte om denna conversion är rätt men lägg en kik.
-	//Do convert code
+	var priceKWH = document.getElementById("price").value;
+	var cost = 0;
+	console.log("THe price: " + priceKWH);
+	if(priceKWH > 0){
+		cost = (totalwatt / (1000*900)) * priceKWH;//Vet inte om denna conversion är rätt men lägg en kik.	
+	}else{
+		alert("Type in your price for kwh in the settings section, down to the left under the video.");
+	}
 	return cost;
 }
 
