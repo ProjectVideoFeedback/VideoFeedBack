@@ -2,9 +2,9 @@ $(document).ready(function() {
     /*$('#start-page').animate({'opacity': '.1', 'pointer-events': 'none'}, 0);
     $('#loader-page').fadeIn(0);
     $('#loader').addClass('load');
+
+
     /* Connect to server */
-
-
     $('#connect').click(function() {
         $('#start-page').animate({'opacity': '.1', 'pointer-events': 'none'}, 200);
         $('#loader-page').fadeIn(200);
@@ -51,7 +51,9 @@ $(document).ready(function() {
 
     /* On fullscreen icon click or double click */
     $('#fullscreen').click(function() {
-        fullscreen();
+        //fullscreen();
+        $('#stats').toggleClass('in-video');
+        $('#toggle-stats').toggleClass('closed');
     });
     $('#video').dblclick(function() {
         fullscreen();
