@@ -43,7 +43,7 @@ function check(msg){
 }
 
 function getDaily(msg){
-	if(msg.topic == 'Daily')
+	if(msg.topic == 'VideoFeedbackDaily')
 		console.log("Topic: " + msg.topic + " Payload: " + msg.payload);
 }
 
