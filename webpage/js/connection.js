@@ -13,6 +13,7 @@ function connect(source){
 	socket.on('connect', function () {
 	    socket.on('mqtt', function (msg) {
 			check(msg);
+			getDaily(msg);
 	    });
 	});
 	socket.emit('subscribe',{topic:'/some/sensor/data'});
@@ -39,6 +40,11 @@ function check(msg){
 		//console.log(msg.topic+' '+msg.payload+', time elapsed:'+time+', Date:'+new Date());
 		//console.log("size: " + measurement_data.length + " buildingwatt: " + measurement_data[measurement_data.length-1]["buildingwatt"] + " Date: " + measurement_data[measurement_data.length-1]["date"] + " KWH: " + wattSum/1000);
 	}
+}
+
+function getDaily(msg){
+	if(msg.topic == 'Daily')
+		console.log("Topic: " + msg.topic + " Payload: " + msg.payload);
 }
 
 //Sets the cost amount. It also checks weather of not the new cost has become greater that the previous total,
