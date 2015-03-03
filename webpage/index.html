@@ -2,23 +2,23 @@
 <html>
 <head>
 <meta charset="utf-8">
+<link href="images/favicon.png" rel="icon" type="image/png">
 <meta name="description" content="Visualize your energy consumption!">
 <title>Video Feedback</title>
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,600' rel='stylesheet' type='text/css'>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://cdn.socket.io/socket.io-1.3.3.js"></script>
 <script src="js/connection.js"></script>
 <script src="js/scripts.js"></script>
-<script src="https://cdn.socket.io/socket.io-1.3.3.js"></script>
 </head>
 <body>
 <div id="frame">
     <div class="container">
-        <div class="content small">
-            <div id="start-page" class="inner-container active" >
+        <div class="content">
+            <div id="start-page" class="inner-container" >
                 <div id="welcome" class="blue">Welcome!</div>
                 <div id="info">Please fill in the information</div>
-                <!-- <img src="images/favicon.png" style="position: absolute; right: 0"> -->
                 <span>Host name</span>
                 <form onsubmit="document.getElementById('connect').click">
                     <input type="text" id="host" class="white">
@@ -26,34 +26,46 @@
                 <div role="button" id="connect">Connect</div>
             </div>
             <div id="loader-page" class><span>Connecting</span><div id="loader"></div></div>
-            <div id="video-page" class="inner-container">
+            <div id="video-page" class="inner-container active">
+                <div id="back">
+                    <div id="back-image"></div>
+                </div>
                 <div class="video-container">
-                    <video id="video" muted>
-                        <source src="http://cdn.gsmarena.com/vv/reviewsimg/lg-g2/review/camera/gsmarena_v001.mp4" type="video/mp4">
+                    <video id="video" muted autoplay>
+                        <!--<source src="http://cdn.gsmarena.com/vv/reviewsimg/lg-g2/review/camera/gsmarena_v001.mp4" type="video/mp4">-->
+                        <source src="video/v1compressed.mp4" type="video/mp4">
                     </video>
                     <div id="fullscreen"></div>
                 </div>
-                <div id="settings">
-                    <div role="button" id="toggle-settings" class="toggle"><div class="closed"></div></div>
+                <div id="settings" class="info-box">
+                    <div role="button" id="toggle-settings" class="toggle">
+                        <div id="settings-image" class="toggle-image closed"></div>
+                    </div>
                     <div id="settings-box" class="roll-box">
-                        <span class="alt orange">Pris per kWh: </span><input type="text" id="price" class="white"><span class="unit">kr</span>
+                        <span class="alt white">Price per kWh: </span>
+                        <div style="position:relative; width:auto; display:inline-block">
+                            <input type="text" id="price" class="white">
+                            <span class="unit">kr</span>
+                        </div>
                     </div>
                 </div>
-                <div id="stats">
-                    <div role="button" id="toggle-stats" class="toggle"><div class="closed"></div></div>
+                <div id="stats" class="info-box">
+                    <div role="button" id="toggle-stats" class="toggle">
+                        <div id="stats-image" class="toggle-image closed"></div>
+                    </div>
                     <div id="stats-box" class="roll-box">
                         <div class="stat-frac">
-                            <div class="stat-time orange"><span>Today</span></div>
+                            <div class="stat-time white"><span>Today</span></div>
                             <div class="stat-values">
-                                <span class="white">13 kWh</span>
-                                <span class="green">17 kr</span>
+                                <span class="white" id="kwh-today">13 kWh</span>
+                                <span class="green" id="money-today">17 kr</span>
                             </div>
                         </div>
                         <div class="stat-frac">
-                            <div class="stat-time orange"><span>This month</span></div>
+                            <div class="stat-time white"><span>This month</span></div>
                             <div class="stat-values">
-                                <span class="white">92 kWh</span>
-                                <span class="red">120 kr</span>
+                                <span class="white" id="kwh-month">92 kWh</span>
+                                <span class="red" id="money-month">120 kr</span>
                             </div>
                         </div>
                     </div>
