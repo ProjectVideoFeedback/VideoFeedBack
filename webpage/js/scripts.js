@@ -1,112 +1,152 @@
-$(document).ready(function() {
-    /*$('#start-page').animate({'opacity': '.1', 'pointer-events': 'none'}, 0);
-    $('#loader-page').fadeIn(0);
-    $('#loader').addClass('load');
+var fullscreen = false;
+var video;
 
+$(document).ready(function() {
+    video = document.getElementById('video');
+
+    if ($('#start-page').hasClass('active'))
+        $('.content').addClass('small');
+    else
+        $('.content').removeClass('small');
 
     /* Connect to server */
     $('#connect').click(function() {
         $('#start-page').animate({'opacity': '.1', 'pointer-events': 'none'}, 200);
         $('#loader-page').fadeIn(200);
         $('#loader').addClass('load');
-        $('#loader-small').addClass('load load-reverse');
 
-        connect('http://op-en.se:5000');
+        if ($('#host').val() !== "")
+            connect($('#host').val());
+        else
+            connect('http://op-en.se:5000');
 
         setTimeout(function() {
-            $('#start-page').fadeOut(200);
+            $('#start-page').removeClass('active');
             $('#loader-page').fadeOut(200);
             $('.content').removeClass('small');
             setTimeout(function() {
                 $('#loader').removeClass('load');
             }, 200);
-            $('#video-page').fadeIn(200);
-        }, 2000);
-
+            $('#video-page').addClass('active');
+            $('#start-page').removeAttr('style');
+        }, 500);
     });
+
+    var time = getTimestamps();
+    console.log(time);
 
     /* On settings or statistics icon click */
     $('.toggle').click(function() {
         toggle(this);
     });
 
-    /* Show/hide fullscren icon */
-    $('#video-container').on('mouseenter', function() {
-        $('#fullscreen').show();
-    }).on('mouseleave', function() {
-        $('#fullscreen').fadeOut(200);
+    /* Go back to start page */
+    $('#back').on('click', function() {
+        $('#video-page').removeClass('active');
+        $('#start-page').addClass('active');
+        $('.content').addClass('small');
     });
 
-    /* Hide fullscreen icon and cursor on inactivity */
+    /* Show/hide fullscreen icons and cursor on inactivity */
     var timer;
-    document.getElementById('video').addEventListener('mousemove', function() {
+    document.getElementById('video-page').addEventListener('mousemove', function() {
         //document.body.style.cursor = 'default';
+        $('#toggle-stats').show();
         $('#fullscreen').show();
-        clearTimeout( timer );
+        clearTimeout(timer);
         timer = setTimeout(function() {
             //document.body.style.cursor = 'none';
+            if(fullscreen) $('#toggle-stats').fadeOut(200);
             $('#fullscreen').fadeOut(200);
         }, 1500 );
     });
 
-    /* On fullscreen icon click or double click */
+    /* Set fullscreen on icon click or double click */
     $('#fullscreen').click(function() {
-        //fullscreen();
-        $('#stats').toggleClass('in-video');
+        toggleFullscreen();
         $('#toggle-stats').toggleClass('closed');
     });
     $('#video').dblclick(function() {
-        fullscreen();
+        toggleFullscreen();
+    });
+
+    /* Set fullscreen on f keyup */
+    $(document).keyup(function(e) {
+        if ($('*:focus').length === 0)
+            if (e.keyCode == 70)
+                toggleFullscreen();
+    });
+
+    /* Play video */
+    $(document).keydown(function(e) {
+        if (e.keyCode == 32)
+            video.play();
+    });
+
+    /* On fullscreen exit */
+    $('#video').bind('webkitfullscreenchange mozfullscreenchange fullscreenchange', function() {
+        if (!(document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen)) {
+            fullscreen = false;
+            $('#fullscreen').css({'background-image': 'url(images/fullscreen.svg)', 'position': 'absolute'});
+            $('#stats').removeClass('fullscreen');
+        }
     });
 });
 
 /* Toggle fullscreen */
-function fullscreen() {
+function toggleFullscreen() {
     var video = document.getElementById('video');
     if (!document.fullscreenElement && !document.mozFullScreenElement &&
         !document.webkitFullscreenElement && !document.msFullscreenElement ) {
         if (video.requestFullscreen) {
-          video.requestFullscreen();
-        } else if (video.mozRequestFullScreen) {
-          video.mozRequestFullScreen();
+            video.requestFullscreen();
         } else if (video.webkitRequestFullscreen) {
-          video.webkitRequestFullscreen();
+            video.webkitRequestFullscreen();
+        } else if (video.mozRequestFullScreen) {
+            video.mozRequestFullScreen();
         }
+        fullscreen = true;
+        $('#stats-image').css({'background-image': 'url(images/arrow-reverse.png)'});
         $('#fullscreen').css({'background-image': 'url(images/fullscreen-exit.svg)', 'position': 'fixed'});
-    } else {
+        if(!$('#stats-image').hasClass('closed'))
+            $('#stats').addClass('bg');
+    }
+    else {
         if (document.exitFullscreen) {
             document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
         } else if (document.msExitFullscreen) {
             document.msExitFullscreen();
         } else if (document.mozCancelFullScreen) {
             document.mozCancelFullScreen();
-        } else if (document.webkitExitFullscreen) {
-            document.webkitExitFullscreen();
         }
+        fullscreen = false;
+        $('#stats-image').css({'background-image': 'url(images/arrow.png)'});
         $('#fullscreen').css({'background-image': 'url(images/fullscreen.svg)', 'position': 'absolute'});
+        $('#stats').removeClass('bg');
     }
+    $('#stats').toggleClass('fullscreen');
 }
 
 /* Toggle settings/statistics */
 function toggle(elem) {
-    var button, box,
-        stats = false,
-        settings = false;
-    if(elem == document.getElementById('toggle-stats')) {
-        stats = true;
+    var button, box, section;
+    if (elem == document.getElementById('toggle-stats')) {
         button = $('#toggle-stats > div');
         box = $('#stats-box');
+        section = $('#stats');
     }
-    else if(elem == document.getElementById('toggle-settings')) {
-        settings = true;
+    else if (elem == document.getElementById('toggle-settings')) {
         button = $('#toggle-settings > div');
         box = $('#settings-box');
+        section = $('#settings');
     }
     button.css({transition: '.2s'});
-    if(button.hasClass('closed')) {
+    if (button.hasClass('closed')) {
         box.css({marginTop: '28px'});
         box.fadeIn(200).animate({marginTop: '-=15px'},200).dequeue();
-        if(stats)
+        if (stats)
             button.css({transform: 'rotate(360deg)'});
         else
             button.css({transform: 'rotate(-360deg)'});
@@ -121,10 +161,23 @@ function toggle(elem) {
         setTimeout(function() {
             box.css({marginTop: '+=15px'});
         }, 200);
-        if(stats)
+        if (stats)
             button.css({transform: 'rotate(180deg)'});
         else
             button.css({transform: 'rotate(-180deg)'});
         button.addClass('closed');
     }
+    if (fullscreen)
+        section.toggleClass('bg');
+
+}
+
+function getTimestamps() {
+    var file = "timestamps",
+        reader = (window.XMLHttpRequest != null )
+               ? new XMLHttpRequest()
+               : new ActiveXObject("Microsoft.XMLHTTP");
+    reader.open("GET", file, false);
+    reader.send();
+    return reader.responseText.split(/(\r\n|\n)/g);
 }
