@@ -32,8 +32,26 @@ $(document).ready(function() {
         }, 500);
     });
 
-    var time = getTimestamps();
-    console.log(time);
+    //var time = getTimestamps();
+    //console.log(time);
+
+    var timestamps = new Array(1.01, 2.08, 6.15, 7.19, 9.00, 10.06, 11.14);
+    var coins = 0;
+    console.log(timestamps[0]);
+    console.log(timestamps[1]);
+    console.log(timestamps[2]);
+
+    var test = false;
+
+    video.addEventListener('timeupdate', function() {
+        if(this.currentTime >= timestamps[coins] + 0.15) {
+            this.pause();
+            if(++coins >= timestamps.length) {
+                video.removeEventListener('timeupdate', arguments.callee);
+                test = true;
+            }
+        }
+    });
 
     /* On settings or statistics icon click */
     $('.toggle').click(function() {
@@ -77,25 +95,29 @@ $(document).ready(function() {
                 toggleFullscreen();
     });
 
-    /* Play video */
+    /* Play video on space keydown */
     $(document).keydown(function(e) {
         if (e.keyCode == 32)
             video.play();
     });
 
     /* On fullscreen exit */
-    $('#video').bind('webkitfullscreenchange mozfullscreenchange fullscreenchange', function() {
+    $(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange MSFullscreenChange', function() {
         if (!(document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen)) {
             fullscreen = false;
             $('#fullscreen').css({'background-image': 'url(images/fullscreen.svg)', 'position': 'absolute'});
             $('#stats').removeClass('fullscreen');
         }
     });
+
+    /* Disable right click on video */
+    $("video").bind("contextmenu",function(){
+        return false;
+    });
 });
 
 /* Toggle fullscreen */
 function toggleFullscreen() {
-    var video = document.getElementById('video');
     if (!document.fullscreenElement && !document.mozFullScreenElement &&
         !document.webkitFullscreenElement && !document.msFullscreenElement ) {
         if (video.requestFullscreen) {
@@ -108,7 +130,7 @@ function toggleFullscreen() {
         fullscreen = true;
         $('#stats-image').css({'background-image': 'url(images/arrow-reverse.png)'});
         $('#fullscreen').css({'background-image': 'url(images/fullscreen-exit.svg)', 'position': 'fixed'});
-        if(!$('#stats-image').hasClass('closed'))
+        if (!$('#stats-image').hasClass('closed'))
             $('#stats').addClass('bg');
     }
     else {
@@ -174,10 +196,8 @@ function toggle(elem) {
 
 function getTimestamps() {
     var file = "timestamps",
-        reader = (window.XMLHttpRequest != null )
-               ? new XMLHttpRequest()
-               : new ActiveXObject("Microsoft.XMLHTTP");
+        reader = (window.XMLHttpRequest !== null ) ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
     reader.open("GET", file, false);
     reader.send();
-    return reader.responseText.split(/(\r\n|\n)/g);
+    return reader.responseText.split(" ");
 }
