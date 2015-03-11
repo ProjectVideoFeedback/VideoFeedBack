@@ -338,7 +338,7 @@ video::-webkit-media-controls {
 
 #stats.fullscreen {
 	position: fixed;
-	width: 245px;
+	width: 265px;
 	bottom: 10px;
 	right: 55px;
 	z-index: 2147483647;
