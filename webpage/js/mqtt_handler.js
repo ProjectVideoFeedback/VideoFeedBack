@@ -1,7 +1,7 @@
 var kwhTotal;
 
 
-function getDaily(msg) {
+function setDaily(msg) {
 	if(msg.topic == 'VideoFeedbackDaily') {
 		var payload = msg.payload;
 		console.log("Topic: " + msg.topic + " Payload: " + payload);
