@@ -28,7 +28,7 @@ function measurement_storage(msg, date){
 
 function check(msg){
 	if(msg.topic == 'buildingWatt'){
-	
+
 		end = new Date().getTime();
 		time = end-start;
 		start = end;
@@ -40,11 +40,6 @@ function check(msg){
 		//console.log(msg.topic+' '+msg.payload+', time elapsed:'+time+', Date:'+new Date());
 		//console.log("size: " + measurement_data.length + " buildingwatt: " + measurement_data[measurement_data.length-1]["buildingwatt"] + " Date: " + measurement_data[measurement_data.length-1]["date"] + " KWH: " + wattSum/1000);
 	}
-}
-
-function getDaily(msg){
-	if(msg.topic == 'VideoFeedbackDaily')
-		console.log("Topic: " + msg.topic + " Payload: " + msg.payload);
 }
 
 //Sets the cost amount. It also checks weather of not the new cost has become greater that the previous total,
@@ -78,10 +73,9 @@ function money_converter(totalwatt){
 	var cost = 0;
 	console.log("THe price: " + priceKWH);
 	if(priceKWH > 0){
-		cost = (totalwatt / (1000*900)) * priceKWH;//Vet inte om denna conversion är rätt men lägg en kik.	
+		cost = (totalwatt / (1000*900)) * priceKWH;//Vet inte om denna conversion är rätt men lägg en kik.
 	}else{
 		alert("Type in your price for kwh in the settings section, down to the left under the video.");
 	}
 	return cost;
 }
-

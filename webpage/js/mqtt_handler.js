@@ -1,15 +1,15 @@
-var kwh-total;
+var kwhTotal;
 
 
-function getDaily(msg){
+function getDaily(msg) {
 	if(msg.topic == 'VideoFeedbackDaily')
 	{
 		var payload = msg.payload;
 		console.log("Topic: " + msg.topic + " Payload: " + payload);
-		if(kwh-total == undefined)
+		if(kwhTotal === undefined)
 		{
-			kwh-total = payload.accumulated;
-			console.log("total: " + total); 
+			kwhTotal = payload.accumulated;
+			console.log("total: " + total);
 			$('#kwh-today').html(total + " kwh");
 		}
 	}
