@@ -48,7 +48,8 @@ $(document).ready(function() {
     var test = false;
 
     video.addEventListener('timeupdate', function() {
-        if(this.currentTime >= timestamps[coins] + 0.15) {
+        if(this.currentTime >= timestamps[coins]) {
+            console.log("TJENA");
             this.pause();
             if(++coins >= timestamps.length) {
                 video.removeEventListener('timeupdate', arguments.callee);
