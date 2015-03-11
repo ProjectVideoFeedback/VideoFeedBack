@@ -29,7 +29,7 @@ $(document).ready(function() {
             }, 200);
             $('#video-page').addClass('active');
             $('#start-page').removeAttr('style');
-        }, 500);
+        }, 1000);
     });
 
     var timestamps = getTimestamps();
