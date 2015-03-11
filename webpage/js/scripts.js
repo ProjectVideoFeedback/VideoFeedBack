@@ -35,8 +35,12 @@ $(document).ready(function() {
     //var time = getTimestamps();
     //console.log(time);
 
-    var timestamps = new Array(1.01, 2.08, 6.15, 7.19, 9.00, 10.06, 11.14);
+    //var timestamps = new Array(1.01, 2.08, 6.15, 7.19, 9.00, 10.06, 11.14);
+    var timestamps = getTimestamps();
+    console.log("LENGTH: " + timestamps.length);
+
     var coins = 0;
+    //getTimestamps();
     console.log(timestamps[0]);
     console.log(timestamps[1]);
     console.log(timestamps[2]);
@@ -195,7 +199,7 @@ function toggle(elem) {
 }
 
 function getTimestamps() {
-    var file = "timestamps",
+    var file = "http://stangen.asuscomm.com/timestamps",
         reader = (window.XMLHttpRequest !== null ) ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
     reader.open("GET", file, false);
     reader.send();
