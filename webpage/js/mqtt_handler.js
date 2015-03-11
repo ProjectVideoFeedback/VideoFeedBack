@@ -2,7 +2,7 @@ var daily;
 var monthly;
 
 function setDaily(msg) {
-	if(msg.topic == 'VideoFeedbackDaily') {
+	if(msg.topic == 'VideoFeedbackDailyMonthly') {
 		var payload = msg.payload.split(/,|:/);
 		
 		if(daily != payload[5].replace(/"/g,'')){
