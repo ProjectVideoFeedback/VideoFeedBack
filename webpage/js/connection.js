@@ -12,8 +12,8 @@ function connect(source){
 	socket = io.connect(source);
 	socket.on('connect', function () {
 	    socket.on('mqtt', function (msg) {
-			check(msg);
-			getDaily(msg);
+				check(msg);
+				setDaily(msg);
 	    });
 	});
 	socket.emit('subscribe',{topic:'/some/sensor/data'});
