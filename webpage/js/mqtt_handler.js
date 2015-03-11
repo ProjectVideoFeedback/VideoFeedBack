@@ -10,7 +10,7 @@ function getDaily(msg){
 		{
 			kwh-total = payload.accumulated;
 			console.log("total: " + total); 
-			$('#kwh-today').html(total);
+			$('#kwh-today').html(total + " kwh");
 		}
 	}
 }

@@ -48,6 +48,7 @@ $(document).ready(function() {
     var test = false;
 
     video.addEventListener('timeupdate', function() {
+		console.log(this.currentTime);
         if(this.currentTime >= timestamps[coins]) {
             console.log("TJENA");
             this.pause();
