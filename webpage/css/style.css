@@ -46,7 +46,8 @@ body, html {
 }
 
 .content.small {
-	max-width: 800px;
+	max-width: 600px;
+	max-height: 400px;
 }
 
 div[role=button] {
@@ -88,7 +89,7 @@ input:focus {
 }
 
 #loader-page {
-	position: absolute;
+	position: fixed;
 	display: none;
 	margin: auto;
 	top: 0;
@@ -126,6 +127,7 @@ input:focus {
 #welcome {
 	font-size: 56px;
 	text-shadow: 1px 1px 3px #333;
+	color: #ccc;
 }
 
 #info {
@@ -145,18 +147,27 @@ input:focus {
 	text-shadow: 1px 1px 0 #707070;
 }
 
+#start-page form {
+	width: 380px;
+}
+
 #start-page input {
+	float: left;
 	margin-top: 5px;
-	width: 200px;
+	width: 380px;
+	height: 40px;
 	padding: 8px 10px;
 	background: #333;
+	font-size: 20px;
+	display: inline-block;
 }
 
 #connect {
-	position: absolute;
-	bottom: 20px;
-	right: 30px;
-	padding: 10px 20px;
+	display: inline-block;
+	margin-top: 5px;
+	margin-left: 10px;
+	float: right;
+	padding: 11px 20px;
 	font-size: 16px;
 	background: #1E88E5;
 	box-shadow: 0 1px 3px #222;
@@ -189,7 +200,7 @@ input:focus {
 
 #start-page.inner-container {
 	border-radius: 5px;
-	padding: 30px;
+	padding: 80px 50px;
 }
 
 #video-page.inner-container {
