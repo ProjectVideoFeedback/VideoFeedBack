@@ -32,30 +32,17 @@ $(document).ready(function() {
         }, 500);
     });
 
-    //var time = getTimestamps();
-    //console.log(time);
-
-    //var timestamps = new Array(1.01, 2.08, 6.15, 7.19, 9.00, 10.06, 11.14);
     var timestamps = getTimestamps();
 
-    console.log("LENGTH: " + timestamps.length);
-
     var coins = 0;
-    //getTimestamps();
-    console.log(timestamps[0]);
-    console.log(timestamps[1]);
-    console.log(timestamps[2]);
-
-    var test = false;
 
     video.addEventListener('timeupdate', function() {
 		console.log(this.currentTime);
-        if(this.currentTime >= timestamps[coins]) {
+        if (this.currentTime >= timestamps[coins]) {
             console.log("TJENA");
             this.pause();
-            if(++coins >= timestamps.length) {
+            if (++coins >= timestamps.length) {
                 video.removeEventListener('timeupdate', arguments.callee);
-                test = true;
             }
         }
     });
@@ -75,12 +62,10 @@ $(document).ready(function() {
     /* Show/hide fullscreen icons and cursor on inactivity */
     var timer;
     document.getElementById('video-page').addEventListener('mousemove', function() {
-        //document.body.style.cursor = 'default';
         $('#toggle-stats').show();
         $('#fullscreen').show();
         clearTimeout(timer);
         timer = setTimeout(function() {
-            //document.body.style.cursor = 'none';
             if(fullscreen) $('#toggle-stats').fadeOut(200);
             $('#fullscreen').fadeOut(200);
         }, 1500 );
