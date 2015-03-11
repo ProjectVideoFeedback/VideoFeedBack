@@ -91,6 +91,10 @@ $(document).ready(function() {
         if (e.keyCode == 32)
             video.play();
     });
+	
+	$('#price').on('keyup', function() {
+		updateStat();
+	});
 
     /* On fullscreen exit */
     $(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange MSFullscreenChange', function() {

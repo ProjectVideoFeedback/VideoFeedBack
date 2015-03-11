@@ -1,24 +1,35 @@
-var kwhTotal;
-
+var daily;
+var monthly;
 
 function setDaily(msg) {
 	if(msg.topic == 'VideoFeedbackDaily') {
 		var payload = msg.payload.split(/,|:/);
 		
-		if(kwhTotal != payload[5].replace(/"/g,'')){
-			kwhTotal = payload[5].replace(/"/g,'');
-		
+		if(daily != payload[5].replace(/"/g,'')){
+			daily = payload[5].replace(/"/g,'');
+			
+			monthly = payload[7].replace(/"/g,'');
+			
 			console.log("Topic: " + msg.topic + " Payload: " + msg.payload);
-			console.log("total: " + kwhTotal);
+			console.log("totalD: " + daily);
+			console.log("totalM: " + monthly);
 		
-			var price = &('#price').val;
-		
-			//if(price == undefined)
-				//price = 1.3;
-			
-			
-			$('#kwh-today').html(kwhTotal + " kWh");
-			$('#money-today').html((kwhTotal*1.3).toFixed(2) + " kr");
+			updateStat();
 		}
 	}
+}
+
+function updateStat(){
+	var price = $('#price').val();
+	price = price.replace(/,/g,'.');
+	price = parseFloat(price);
+	if(price == undefined)
+		price = 1.3;
+	
+	
+	$('#kwh-today').html(daily + " kWh");
+	$('#money-today').html((daily*price).toFixed(2) + " kr");
+	
+	$('#kwh-month').html(monthly + " kWh");
+	$('#money-month').html((monthly*price).toFixed(2) + " kr");
 }
