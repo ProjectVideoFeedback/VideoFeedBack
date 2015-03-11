@@ -37,6 +37,7 @@ $(document).ready(function() {
 
     //var timestamps = new Array(1.01, 2.08, 6.15, 7.19, 9.00, 10.06, 11.14);
     var timestamps = getTimestamps();
+
     console.log("LENGTH: " + timestamps.length);
 
     var coins = 0;
@@ -204,5 +205,13 @@ function getTimestamps() {
         reader = (window.XMLHttpRequest !== null ) ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
     reader.open("GET", file, false);
     reader.send();
-    return reader.responseText.split(" ");
+    var times =  reader.responseText.split(" ");
+    var secondsTimes = [];
+    for(i= 0; i < times.length; i++){
+        split = times[i].split(":");
+        for(n = 0; n < 3; n++)
+            split[n] = parseFloat(split[n]);
+        secondsTimes.push(split[0] * 60 + split[1] + split[2]/100);
+    }
+    return secondsTimes;
 }
