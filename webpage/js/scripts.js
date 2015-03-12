@@ -34,7 +34,7 @@ $(document).ready(function() {
 
     var timestamps = getTimestamps();
 
-    var coins = 96;
+    var coins = 98;
 
     video.addEventListener('timeupdate', function() {
         if (this.currentTime >= timestamps[coins]) {
