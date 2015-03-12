@@ -189,7 +189,7 @@ function toggle(elem) {
 }
 
 function getTimestamps() {
-    var file = "http://stangen.asuscomm.com/timestamps",
+    var file = "../video/timestamps",
         reader = (window.XMLHttpRequest !== null ) ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
     reader.open("GET", file, false);
     reader.send();
