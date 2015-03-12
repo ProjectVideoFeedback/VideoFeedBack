@@ -34,10 +34,9 @@ $(document).ready(function() {
 
     var timestamps = getTimestamps();
 
-    var coins = 86;
-	
+    var coins = 96;
+
     video.addEventListener('timeupdate', function() {
-		console.log(this.currentTime);
         if (this.currentTime >= timestamps[coins]) {
             this.pause();
             if (++coins >= timestamps.length) {
@@ -91,7 +90,7 @@ $(document).ready(function() {
         if (e.keyCode == 32)
             video.play();
     });
-	
+
 	$('#price').on('keyup', function() {
 		updateStat();
 	});
@@ -196,7 +195,7 @@ function getTimestamps() {
     reader.send();
     var times =  reader.responseText.split(" ");
     var secondsTimes = [];
-    for(i= 0; i < times.length; i++){
+    for(i= 0; i < times.length; i++) {
         split = times[i].split(":");
         for(n = 0; n < 3; n++)
             split[n] = parseFloat(split[n]);

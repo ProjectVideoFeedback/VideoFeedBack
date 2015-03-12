@@ -7,7 +7,6 @@ var wattSum = 0;
 var totalCost = 0;
 
 function connect(source){
-	console.log("Tjena boys");
 	start = new Date().getTime();
 	socket = io.connect(source);
 	socket.on('connect', function () {
@@ -35,7 +34,7 @@ function check(msg){
 		wattSum += msg.payload;
 
 		//setTotalCost(money_converter(wattSum));
-		console.log(" KWH: " + (wattSum*((new Date()).getTime() - startTime.getTime())/(3600 * 1000))/1000);
+		//console.log(" KWH: " + (wattSum*((new Date()).getTime() - startTime.getTime())/(3600 * 1000))/1000);
 		//measurement_storage(msg, new Date());
 		//console.log(msg.topic+' '+msg.payload+', time elapsed:'+time+', Date:'+new Date());
 		//console.log("size: " + measurement_data.length + " buildingwatt: " + measurement_data[measurement_data.length-1]["buildingwatt"] + " Date: " + measurement_data[measurement_data.length-1]["date"] + " KWH: " + wattSum/1000);
@@ -71,11 +70,10 @@ function money_converter(totalwatt){
 
 	var priceKWH = document.getElementById("price").value;
 	var cost = 0;
-	console.log("THe price: " + priceKWH);
 	if(priceKWH > 0){
 		cost = (totalwatt / (1000*900)) * priceKWH;//Vet inte om denna conversion är rätt men lägg en kik.
 	}else{
-		alert("Type in your price for kwh in the settings section, down to the left under the video.");
+		alert("Enter your kWh price in the settings menu.");
 	}
 	return cost;
 }
