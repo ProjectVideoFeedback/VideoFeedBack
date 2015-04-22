@@ -1,5 +1,6 @@
 var fullscreen = false;
 var video;
+var timestamps = [];
 
 $(document).ready(function() {
     video = document.getElementById('video');
@@ -32,10 +33,31 @@ $(document).ready(function() {
         }, 1000);
     });
 
-    var timestamps = getTimestamps();
-
     var coins = 98;
 
+    /* ------------------------- <LOCAL DEMO> ------------------------- */
+    /* For local demo without a server. (XML requests for reading local file is not allowed; save some timestamps manually.)
+     * For demo purposes, start with 98 coins on the table. */
+
+    timestamps[98] = 237.04;
+    timestamps[99] = 239.17;
+    timestamps[100] = 243.08;
+    timestamps[101] = 245.10;
+    timestamps[102] = 247.12;
+    timestamps[103] = 250.03;
+    timestamps[104] = 252.07;
+
+    /* ------------------------- </LOCAL DEMO> ------------------------- */
+
+
+    /* ------------------------- <DEMO / REAL> ------------------------- */
+    /* Get timestamps from the file. */
+    // timestamps = getTimestamps();
+    /* ------------------------- </DEMO / REAL> ------------------------- */
+
+    video.currentTime = timestamps[coins];
+
+    /* Runs when the video is playing. Pause if next timestamp is reached. */
     video.addEventListener('timeupdate', function() {
         if (this.currentTime >= timestamps[coins]) {
             this.pause();
@@ -91,8 +113,9 @@ $(document).ready(function() {
             video.play();
     });
 
+    /* Update stats on price change */
 	$('#price').on('keyup', function() {
-		updateStat();
+		updateStats();
 	});
 
     /* On fullscreen exit */
@@ -105,7 +128,7 @@ $(document).ready(function() {
     });
 
     /* Disable right click on video */
-    $("video").bind("contextmenu",function(){
+    $("video").bind("contextmenu",function() {
         return false;
     });
 });
@@ -188,18 +211,23 @@ function toggle(elem) {
 
 }
 
+/* Get video timestamps from file and convert to seconds */
 function getTimestamps() {
     var file = "../video/timestamps",
         reader = (window.XMLHttpRequest !== null ) ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
     reader.open("GET", file, false);
-    reader.send();
+    try {
+        reader.send();
+    } catch (error) {
+        $('#error').show();
+    }
     var times =  reader.responseText.split(" ");
-    var secondsTimes = [];
+    var seconds = [];
     for(i= 0; i < times.length; i++) {
         split = times[i].split(":");
         for(n = 0; n < 3; n++)
             split[n] = parseFloat(split[n]);
-        secondsTimes.push(split[0] * 60 + split[1] + split[2]/100);
+        seconds.push(split[0] * 60 + split[1] + split[2]/100);
     }
-    return secondsTimes;
+    return seconds;
 }
