@@ -17,16 +17,16 @@ function connect(source) {
 			setDaily(msg);
 			/* ------------------------- <REAL> ------------------------- */
 			/* Jump to time in video where amount of coins is the same as the current cost */
-
+			/*
 			if (connected === false) {
 				coins = getDailyCost();
 				if (!isNaN(coins)) {
 					connected = true;
-					if (timestamps[getDailyCost()] !== undefined)
+					if (timestamps[coins] !== undefined)
 						video.currentTime = timestamps[coins];
 				}
 			}
-			
+			*/
 			/* ------------------------- </REAL> ------------------------- */
 	    });
 	});
