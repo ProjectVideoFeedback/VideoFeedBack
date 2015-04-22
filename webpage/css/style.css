@@ -264,6 +264,18 @@ input:focus {
 	cursor: pointer;
 }
 
+#error {
+	display: none;
+	position: absolute;
+	border-radius: 5px;
+	margin-top: 10px;
+	width: 270px;
+	background: rgba(245,124,0,.5);
+	padding: 20px;
+	left: calc(50% - 135px);
+	box-shadow: 0 2px 3px #101010;
+}
+
 video::-webkit-media-controls {
   display:none !important;
 }
