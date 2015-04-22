@@ -21,7 +21,7 @@
                 <div id="info">Connect to your mqtt server</div>
                 <span style="font-size:20px">Host name</span>
                 <form onsubmit="document.getElementById('connect').click">
-                    <input type="text" id="host" class="white" placeholder="http://op-en.se/">
+                    <input type="text" id="host" class="white" placeholder="op-en.se:5000">
                 </form>
                 <div role="button" id="connect">Connect</div>
             </div>
@@ -32,9 +32,10 @@
                 </div>
                 <div class="video-container">
                     <video id="video" oncontextmenu="return false">
-                        <source src="video/v1compressed.mp4#t=237.04" type="video/mp4">
+                        <source src="video/v1compressed.mp4" type="video/mp4">
                     </video>
                     <div id="fullscreen"></div>
+                    <div id="error"><p><b style="font-weight:600; font-size:32px; padding:5px; position:relative; top:5px; color:#111">!</b>Failed to load file <i>timestamps</i></p></div>
                 </div>
                 <div id="settings" class="info-box">
                     <div role="button" id="toggle-settings" class="toggle">
