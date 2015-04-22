@@ -38,7 +38,7 @@ $(document).ready(function() {
     /* ------------------------- <LOCAL DEMO> ------------------------- */
     /* For local demo without a server. (XML requests for reading local file is not allowed; save some timestamps manually.)
      * For demo purposes, start with 98 coins on the table. */
-
+     /*
     timestamps[98] = 237.04;
     timestamps[99] = 239.17;
     timestamps[100] = 243.08;
@@ -46,13 +46,13 @@ $(document).ready(function() {
     timestamps[102] = 247.12;
     timestamps[103] = 250.03;
     timestamps[104] = 252.07;
-
+    */
     /* ------------------------- </LOCAL DEMO> ------------------------- */
 
 
     /* ------------------------- <DEMO / REAL> ------------------------- */
     /* Get timestamps from the file. */
-    // timestamps = getTimestamps();
+    timestamps = getTimestamps();
     /* ------------------------- </DEMO / REAL> ------------------------- */
 
     video.currentTime = timestamps[coins];
@@ -132,6 +132,11 @@ $(document).ready(function() {
         return false;
     });
 });
+
+/* Play video on cost increase */
+function dropCoin() {
+    video.play();
+}
 
 /* Toggle fullscreen */
 function toggleFullscreen() {
