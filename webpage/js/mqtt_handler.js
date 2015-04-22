@@ -1,5 +1,6 @@
 var daily;
 var monthly;
+var prevPrice;
 var price = 1.3;
 
 function setDaily(msg) {
@@ -10,6 +11,10 @@ function setDaily(msg) {
 			monthly = payload[7].replace(/"/g,'');
 			console.log("Topic: " + msg.topic + " Payload: " + msg.payload);
 			updateStats();
+			if (price != prevPrice) {
+				prevPrive = price;
+				dropCoin();
+			}
 		}
 	}
 }
